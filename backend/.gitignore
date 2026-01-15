@@ -1,0 +1,19 @@
+# .NET / Visual Studio
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.suo
+*.userprefs
+appsettings.Development.json
+
+# Node.js / Frontend
+node_modules/
+.next/
+dist/
+build/
+.env.local
+
+# OS-specific
+.DS_Store
+Thumbs.db

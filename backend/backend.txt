@@ -1,0 +1,33 @@
+backend/
+|── PPS.CRM.sln
+|── PPS.CRM.API/
+│   |── Controllers/
+│   │   |── AuthController.cs
+│   │   |── CustomersController.cs
+│   │   └── DashboardController.cs
+│   |── Program.cs
+│   |── appsettings.json
+│   └── PPS.CRM.API.csproj
+|── PPS.CRM.Core/
+│   |── Entities/
+│   │   |── BaseEntity.cs
+│   │   |── User.cs
+│   │   |── Customer.cs
+│   │   |── Contact.cs
+│   │   |── Partner.cs
+│   │   |── Project.cs
+│   │   |── Activity.cs
+│   │   └── NextStep.cs
+│   |── DTOs/
+│   │   |── AuthDTOs.cs
+│   │   |── CustomerDTOs.cs
+│   │   └── DashboardDTOs.cs
+│   |── Interfaces/
+│   │   └── IAuthService.cs
+│   └── PPS.CRM.Core.csproj
+└── PPS.CRM.Infrastructure/
+    |── Data/
+    │   └── CrmDbContext.cs
+    |── Services/
+    │   └── AuthService.cs
+    └── PPS.CRM.Infrastructure.csproj
