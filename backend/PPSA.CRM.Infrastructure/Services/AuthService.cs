@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using BCrypt.Net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -35,7 +36,7 @@ public class AuthService : IAuthService
             throw new UnauthorizedAccessException("Invalid email or password");
 
         // Update last login
-        user.LastLoginDate = DateTime.UtcNow;
+        user.LastLogin = DateTime.UtcNow;
         await _context.SaveChangesAsync();
 
         var accessToken = GenerateJwtToken(user);
@@ -49,7 +50,7 @@ public class AuthService : IAuthService
             RefreshToken = refreshToken,
             User = new UserDto
             {
-                UserId = user.UserId,
+                UserId = user.Id,
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
@@ -77,7 +78,7 @@ public class AuthService : IAuthService
 
         return new UserDto
         {
-            UserId = user.UserId,
+            UserId = user.Id,
             Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
@@ -93,7 +94,7 @@ public class AuthService : IAuthService
 
         var claims = new[]
         {
-            new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Email, user.Email),
             new Claim(ClaimTypes.Role, user.Role),
             new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}")

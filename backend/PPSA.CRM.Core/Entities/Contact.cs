@@ -2,8 +2,10 @@ namespace PPSA.CRM.Core.Entities;
 
 public class Contact : BaseEntity
 {
-    public int ContactId { get; set; }
-    public int CustomerId { get; set; }
+    // Foreign key to Customer; must match Customer.Id (Guid)
+    public Guid CustomerId { get; set; }
+    public Customer? Customer { get; set; }
+
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string? Email { get; set; }
@@ -12,7 +14,6 @@ public class Contact : BaseEntity
     public string? JobTitle { get; set; }
     public bool IsPrimaryContact { get; set; }
     public string? Notes { get; set; }
-    
-    public Customer? Customer { get; set; }
+
     public string FullName => $"{FirstName} {LastName}";
 }

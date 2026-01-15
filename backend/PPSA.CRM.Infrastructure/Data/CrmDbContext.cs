@@ -25,8 +25,8 @@ public class CrmDbContext : DbContext
         modelBuilder.Entity<User>(entity =>
         {
             entity.ToTable("users");
-            entity.HasKey(e => e.UserId);
-            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasColumnName("id").HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.Email).HasColumnName("email");
             entity.Property(e => e.PasswordHash).HasColumnName("password_hash");
             entity.Property(e => e.FirstName).HasColumnName("first_name");
@@ -34,46 +34,20 @@ public class CrmDbContext : DbContext
             entity.Property(e => e.Phone).HasColumnName("phone");
             entity.Property(e => e.Role).HasColumnName("role");
             entity.Property(e => e.IsActive).HasColumnName("is_active");
-            entity.Property(e => e.LastLoginDate).HasColumnName("last_login_date");
-            entity.Property(e => e.CreatedAt).HasColumnName("created_at");
-            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
-            entity.Property(e => e.ModifiedAt).HasColumnName("modified_at");
-            entity.Property(e => e.ModifiedBy).HasColumnName("modified_by");
-        });
-
-        // Customer configuration
-        modelBuilder.Entity<Customer>(entity =>
-        {
-            entity.ToTable("customers");
-            entity.HasKey(e => e.CustomerId);
-            entity.Property(e => e.CustomerId).HasColumnName("customer_id");
-            entity.Property(e => e.CompanyName).HasColumnName("company_name");
-            entity.Property(e => e.Industry).HasColumnName("industry");
-            entity.Property(e => e.Website).HasColumnName("website");
-            entity.Property(e => e.BillingAddress).HasColumnName("billing_address");
-            entity.Property(e => e.BillingCity).HasColumnName("billing_city");
-            entity.Property(e => e.BillingCountry).HasColumnName("billing_country");
-            entity.Property(e => e.Phone).HasColumnName("phone");
-            entity.Property(e => e.TaxNumber).HasColumnName("tax_number");
-            entity.Property(e => e.Status).HasColumnName("status");
-            entity.Property(e => e.AssignedToUserId).HasColumnName("assigned_to_user_id");
-            entity.Property(e => e.Notes).HasColumnName("notes");
+            entity.Property(e => e.LastLogin).HasColumnName("last_login");
             entity.Property(e => e.CreatedAt).HasColumnName("created_at");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
             entity.Property(e => e.ModifiedAt).HasColumnName("modified_at");
             entity.Property(e => e.ModifiedBy).HasColumnName("modified_by");
 
-            entity.HasOne(e => e.AssignedTo)
-                .WithMany()
-                .HasForeignKey(e => e.AssignedToUserId);
         });
 
         // Contact configuration
         modelBuilder.Entity<Contact>(entity =>
         {
             entity.ToTable("contacts");
-            entity.HasKey(e => e.ContactId);
-            entity.Property(e => e.ContactId).HasColumnName("contact_id");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasColumnName("id").HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.CustomerId).HasColumnName("customer_id");
             entity.Property(e => e.FirstName).HasColumnName("first_name");
             entity.Property(e => e.LastName).HasColumnName("last_name");
@@ -97,8 +71,8 @@ public class CrmDbContext : DbContext
         modelBuilder.Entity<Partner>(entity =>
         {
             entity.ToTable("partners");
-            entity.HasKey(e => e.PartnerId);
-            entity.Property(e => e.PartnerId).HasColumnName("partner_id");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasColumnName("id").HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.CompanyName).HasColumnName("company_name");
             entity.Property(e => e.PartnerType).HasColumnName("partner_type");
             entity.Property(e => e.ContactPerson).HasColumnName("contact_person");
@@ -118,15 +92,15 @@ public class CrmDbContext : DbContext
         modelBuilder.Entity<Project>(entity =>
         {
             entity.ToTable("projects");
-            entity.HasKey(e => e.ProjectId);
-            entity.Property(e => e.ProjectId).HasColumnName("project_id");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasColumnName("id").HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.CustomerId).HasColumnName("customer_id");
             entity.Property(e => e.ProjectName).HasColumnName("project_name");
             entity.Property(e => e.ProjectCode).HasColumnName("project_code");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.StartDate).HasColumnName("start_date");
             entity.Property(e => e.EndDate).HasColumnName("end_date");
-            entity.Property(e => e.Budget).HasColumnName("budget");
+            entity.Property(e => e.Budget).HasColumnName("budget").HasPrecision(18, 2);
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Priority).HasColumnName("priority");
             entity.Property(e => e.ProjectManagerUserId).HasColumnName("project_manager_user_id");
@@ -149,8 +123,8 @@ public class CrmDbContext : DbContext
         modelBuilder.Entity<Activity>(entity =>
         {
             entity.ToTable("activities");
-            entity.HasKey(e => e.ActivityId);
-            entity.Property(e => e.ActivityId).HasColumnName("activity_id");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasColumnName("id").HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.ActivityType).HasColumnName("activity_type");
             entity.Property(e => e.Subject).HasColumnName("subject");
             entity.Property(e => e.Description).HasColumnName("description");
@@ -173,8 +147,8 @@ public class CrmDbContext : DbContext
         modelBuilder.Entity<NextStep>(entity =>
         {
             entity.ToTable("next_steps");
-            entity.HasKey(e => e.NextStepId);
-            entity.Property(e => e.NextStepId).HasColumnName("next_step_id");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasColumnName("id").HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.Title).HasColumnName("title");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.DueDate).HasColumnName("due_date");
